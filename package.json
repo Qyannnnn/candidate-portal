@@ -1,0 +1,11 @@
+{
+  "name": "candidate-portal",
+  "version": "1.0.0",
+  "description": "Northwind Group - Real-time Transparent Candidate Application Portal",
+  "scripts": {
+    "start": "python server.py"
+  },
+  "keywords": ["candidate-portal", "recruitment", "applicant-tracker"],
+  "author": "Northwind Group",
+  "license": "MIT"
+}

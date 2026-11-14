@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CANDIDATE PORTAL | NORTHWIND GROUP</title>
+  <meta name="description" content="Minimalist, real-time candidate application tracker for Northwind Group. Everything in one place, one update, one go.">
+  
+  <!-- Typography: Archivo (Grotesk Sans) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       PAGE 1: LOGIN VIEW (MINIMAL BLACK & WHITE)
+       ====================================================================== -->
+  <main id="loginView" class="login-view" aria-label="Candidate Portal Login">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="company-logo-badge" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <div class="company-sub">NORTHWIND GROUP</div>
+        <h1>CANDIDATE PORTAL</h1>
+        <p class="tagline">Real-time status updates on your applications. One place, no waiting in the dark.</p>
+      </div>
+
+      <div id="loginError" class="login-error hidden" role="alert">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>Invalid credentials. Use demo account: alex@example.com / demo1234</span>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="emailInput">EMAIL ADDRESS</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+            </svg>
+            <input type="email" id="emailInput" placeholder="name@example.com" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="passwordInput">PASSWORD</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <input type="password" id="passwordInput" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" id="btnLogin">
+          <span>LOG IN TO PORTAL</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </form>
+
+      <!-- Demo Account Box -->
+      <section class="demo-account-box" aria-label="Demo Account Credentials">
+        <div class="demo-account-header">
+          <span class="demo-badge">DEMO ACCESS</span>
+          <button type="button" class="btn-prefill" id="btnPrefillDemo">USE DEMO ACCOUNT</button>
+        </div>
+        <div class="demo-details">
+          Email: <code>alex@example.com</code><br>
+          Password: <code>demo1234</code>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ======================================================================
+       PAGE 2: PORTAL DASHBOARD (MANAGING JOB APPLICATIONS)
+       ====================================================================== -->
+  <div id="portalView" class="hidden">
+    <div class="portal-container">
+
+      <!-- 2. "WHAT'S NEW" BANNER (Thin black strip at top) -->
+      <section class="whats-new-banner" id="whatsNewBanner" role="status" aria-live="polite">
+        <div class="banner-content">
+          <span class="banner-pill">UPDATES</span>
+          <span id="bannerText">2 updates since your last visit: Data Analyst Intern moved to Assessment. Your interview for UI/UX Design Intern is ready to book.</span>
+        </div>
+        <button type="button" class="banner-close-btn" id="btnDismissBanner" aria-label="Dismiss banner" title="Dismiss update notification">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </section>
+
+      <!-- 1. TOP BAR -->
+      <header class="top-bar" role="banner">
+        <div class="top-bar-left">
+          <span class="portal-title-pill">CANDIDATE PORTAL</span>
+        </div>
+
+        <div class="top-bar-center">
+          <div class="company-logo-mini" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <span class="company-name-text">NORTHWIND GROUP</span>
+        </div>
+
+        <div class="top-bar-right">
+          <div class="user-profile-badge">
+            <div class="user-avatar" aria-hidden="true">AT</div>
+            <span>ALEX TAN</span>
+          </div>
+          <button type="button" class="btn-signout" id="btnSignOut" title="Sign out of Candidate Portal">
+            <span>SIGN OUT</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- 3. ROLE BAR / JOBS APPLIED -->
+      <section class="role-bar-container" aria-label="Role Applied and Status">
+        <!-- Left Arrow Button (<) -->
+        <button type="button" class="role-nav-btn" id="btnPrevJob" aria-label="Previous job application" title="Previous application (Keyboard Left Arrow)">
+          &lt;
+        </button>
+
+        <!-- Center Job Details -->
+        <div class="role-center-content">
+          <div class="role-counter-row">
+            <span class="job-count-text" id="jobCounterText">JOB 01 / 04 APPLIED</span>
+            <button type="button" class="btn-all-apps" id="btnAllApps">
+              <span>ALL MY APPLICATIONS</span>
+            </button>
+          </div>
+
+          <h1 class="role-title" id="roleTitle">UI/UX DESIGN INTERN</h1>
+
+          <div id="positionDotsContainer"></div>
+
+          <div class="role-metadata-row" id="roleMetadata">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div class="role-status-row" id="roleStatusRow">
+            <!-- Rendered dynamically (Stage chip, whose turn chip) -->
+          </div>
+
+          <!-- "Should I wait or keep applying?" honest answer line -->
+          <div class="wait-or-apply-callout" id="waitOrApplyAdvice">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Right Arrow Button (>) -->
+        <button type="button" class="role-nav-btn" id="btnNextJob" aria-label="Next job application" title="Next application (Keyboard Right Arrow)">
+          &gt;
+        </button>
+      </section>
+
+      <!-- 4. TIMELINE BAR -->
+      <section class="timeline-bar-container" aria-label="Application Timeline">
+        <div class="timeline-header-row">
+          <div class="timeline-title-wrap">
+            <h2>TIMELINE (STEPS TO COMPLETE)</h2>
+          </div>
+          <button type="button" class="btn-legend" id="btnWhatMeans">
+            <span>WHAT DO THESE STAGES MEAN?</span>
+          </button>
+        </div>
+
+        <!-- Horizontal Stepper (Scrollable on mobile) -->
+        <div class="stepper-scroll-container">
+          <div class="stepper-track" id="stepperTrack" role="tablist">
+            <!-- Steps generated dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. MAIN AREA (Two Columns; Stacks on mobile) -->
+      <main class="main-grid" id="mainContent">
+
+        <!-- LEFT COLUMN: TODO List -->
+        <aside class="todo-panel-container" aria-label="Tasks and To-Do List">
+          <div class="todo-panel-header">
+            <h2>
+              <span>TO-DO</span>
+              <span class="todo-count-badge" id="todoCountBadge">03</span>
+            </h2>
+          </div>
+
+          <!-- Scope Filter Toggle -->
+          <div class="todo-filter-tabs" role="tablist">
+            <button type="button" class="filter-tab active" id="filterAllJobs" role="tab" aria-selected="true">
+              ALL JOBS (04)
+            </button>
+            <button type="button" class="filter-tab" id="filterThisJob" role="tab" aria-selected="false">
+              THIS JOB ONLY
+            </button>
+          </div>
+
+          <!-- Grouped To-Dos Container (Today, This week, Later, Completed) -->
+          <div class="todo-groups-list" id="todoListContainer">
+            <!-- Generated dynamically -->
+          </div>
+        </aside>
+
+        <!-- RIGHT COLUMN: Details Panel -->
+        <section class="details-panel-container" id="detailsPanel" aria-label="Selected Item Details">
+          <!-- Dynamically populated based on clicked timeline step OR clicked to-do -->
+        </section>
+
+      </main>
+
+      <!-- 6. FOOTER: PEOPLE TO CONTACT -->
+      <footer class="footer-contact-container" aria-label="Support Contacts">
+        <div class="footer-contact-header">
+          <h2>PEOPLE TO CONTACT WHEN YOU NEED HELP</h2>
+        </div>
+
+        <div class="contact-cards-grid" id="footerContacts">
+          <!-- Contact cards dynamically rendered:
+               1. Recruiter for this job (changes per job)
+               2. Interview Coordinator
+               3. Portal Help Desk -->
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODALS & DIALOGS
+       ====================================================================== -->
+
+  <!-- ALL APPLICATIONS MODAL -->
+  <div class="modal-overlay hidden" id="allAppsModal" role="dialog" aria-modal="true" aria-labelledby="allAppsTitle">
+    <div class="modal-dialog wide">
+      <div class="modal-header">
+        <h3 id="allAppsTitle">ALL MY APPLICATIONS</h3>
+        <button type="button" class="btn-modal-close" data-close-modal aria-label="Close dialog">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13.5px; color:#8A8A8A;">
+          Click any role to jump straight to its progress timeline, tasks, and hiring team details.
+        </p>
+        <div class="all-apps-list" id="allAppsList">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-action-secondary" data-close-modal>CLOSE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGES & WHOSE-TURN LEGEND MODAL -->
+  <div class="modal-overlay hidden" id="legendModal" role="dialog" aria-modal="true" aria-labelledby="legendTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="legendTitle">APPLICATION STAGES &amp; STATUS GUIDE</h3>
+        <button type="button" class="btn-modal-close" data-close-modal aria-label="Close dialog">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="font-family:var(--font-heading); font-size:13px; font-weight:700; color:#0A0A0A; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;">WHOSE TURN CHIPS</div>
+        <div class="legend-grid">
+          <div class="legend-item">
+            <span class="chip chip-action legend-badge">ACTION NEEDED</span>
+            <span class="legend-desc">You have an active task to complete (e.g. choose an interview time slot, complete an assessment, upload a transcript).</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-waiting legend-badge">WAITING FOR EMPLOYER</span>
+            <span class="legend-desc">Our team is reviewing your materials or scheduling the next step. You are all set and do not need to do anything.</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-closed legend-badge">CLOSED</span>
+            <span class="legend-desc">The application has ended (e.g. position filled or candidate not selected). This never affects your other active applications.</span>
+          </div>
+        </div>
+
+        <div style="font-family:var(--font-heading); font-size:13px; font-weight:700; color:#0A0A0A; text-transform:uppercase; letter-spacing:0.04em; margin:20px 0 8px;">HIRING STAGES</div>
+        <div class="legend-grid">
+          <div class="legend-item">
+            <span class="chip chip-stage legend-badge">SUBMITTED</span>
+            <span class="legend-desc">You sent your application and our system verified receipt.</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-stage legend-badge">RECEIVED</span>
+            <span class="legend-desc">We have your application and logged your profile in our applicant tracking system.</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-stage legend-badge">SCREENING</span>
+            <span class="legend-desc">Recruiter is reviewing your background, resume, and portfolio against role criteria.</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-stage legend-badge">ASSESSMENT</span>
+            <span class="legend-desc">Online technical challenge, SQL/coding test, or portfolio review (for specific roles).</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-stage legend-badge">INTERVIEW</span>
+            <span class="legend-desc">Meet the team on video call for technical, design, and culture conversations.</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-stage legend-badge">AWAITING DECISION</span>
+            <span class="legend-desc">The hiring panel debriefs and consolidates evaluations to decide on offer extension.</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-stage legend-badge">OFFER</span>
+            <span class="legend-desc">Formal offer package prepared; your review, questions, or acceptance requested.</span>
+          </div>
+          <div class="legend-item">
+            <span class="chip chip-stage legend-badge">CLOSED OUTCOMES</span>
+            <span class="legend-desc">"Not selected", "Withdrawn", or "Offer accepted". Each application is judged independently.</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-action-primary" data-close-modal>UNDERSTOOD</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK MESSAGE MODAL -->
+  <div class="modal-overlay hidden" id="quickMessageModal" role="dialog" aria-modal="true" aria-labelledby="quickMsgTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="quickMsgTitle">SEND QUICK MESSAGE</h3>
+        <button type="button" class="btn-modal-close" data-close-modal aria-label="Close dialog">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <form id="quickMessageForm">
+        <div class="modal-body">
+          <div style="font-family:var(--font-mono); font-size:11px; color:#8A8A8A; text-transform:uppercase;">
+            TO: <strong id="messageRecipient" style="color:#0A0A0A;">RECRUITER</strong>
+          </div>
+          <div class="form-group">
+            <label for="messageSubject">SUBJECT</label>
+            <input type="text" id="messageSubject" value="Update regarding my application" style="width:100%; padding:10px 14px; border:1px solid #E5E5E5; border-radius:6px; font-size:13px;" required>
+          </div>
+          <div class="form-group">
+            <label for="messageBody">MESSAGE</label>
+            <textarea id="messageBody" rows="4" style="width:100%; padding:10px 14px; border:1px solid #E5E5E5; border-radius:6px; font-size:13px;" placeholder="Write your question or note here..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-action-secondary" data-close-modal>CANCEL</button>
+          <button type="submit" class="btn-action-primary">SEND MESSAGE</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION STACK -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
