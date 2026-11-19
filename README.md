@@ -2,6 +2,8 @@
 
 An interactive, transparent web application that keeps job candidates fully informed about their application status across multiple roles at a single company, eliminating silence, candidate anxiety, and the need for repetitive back-and-forth emails.
 
+**Live demo:** https://qyannnnn.github.io/candidate-portal/
+
 ---
 
 ## 🖤 Design Direction: Minimalist Monochrome Luxury
